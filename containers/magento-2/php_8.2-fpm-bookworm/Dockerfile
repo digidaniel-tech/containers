@@ -2,11 +2,13 @@ FROM php:8.2-fpm-bookworm
 
 # Install dependencies
 RUN apt update && apt install -y \
+  --no-install-recommends \
   unzip \
   libcurl4-openssl-dev \
   libxml2-dev \
   zlib1g-dev \
   libpng-dev \
+  libjpeg-dev \
   libonig-dev \
   libsodium-dev \
   libxslt1-dev \
@@ -16,7 +18,8 @@ RUN apt update && apt install -y \
   && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install \
+RUN docker-php-ext-configure gd --with-jpeg && \
+  docker-php-ext-install \
   bcmath \
   ctype \
   curl \
