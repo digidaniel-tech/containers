@@ -51,7 +51,7 @@ services:
 
   magento:
     container_name: magento
-    image: digidanieltech/magento2ce:1.0.0
+    image: digidanieltech/magento2ce:php8.2-fpm-bookworm
     depends_on:
       db:
         condition: service_healthy
