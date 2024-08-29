@@ -1,0 +1,63 @@
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - 8080:80
+    networks:
+      - magento
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: "magento"
+      MYSQL_USER: "magento"
+      MYSQL_PASSWORD: "magento"
+    networks:
+      - magento
+
+  elasticsearch:
+    image: elasticsearch:7.17.23
+    container_name: elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+    networks:
+      - magento
+
+  magento:
+    container_name: magento
+    image: digidanieltech/magento2
+    depends_on:
+      db:
+        condition: service_healthy
+      # elasticsearch:
+      #   condition: service_healthy
+    environment:
+      MAGENTO_BASE_URL: "https://localhost/"
+      DB_HOST: "db"
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_USER: "admin"
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      LANGUAGE: "sv_SE"
+      CURRENCY: "SEK"
+      TIMEZONE: "Europe/Stockholm"
+      SEARCH_ENGINE: "elasticsearch"
+      SEARCH_ENGINE_HOST: "elasticsearch"
+      SEARCH_ENGINE_PORT: "9200"
+      SEARCH_ENGINE_INDEX_PREFIX: "magento"
+      MAGENTO_PUBLIC_KEY: ${MAGENTO_PUBLIC_KEY}
+      MAGENTO_SECRET_KEY: ${MAGENTO_SECRET_KEY}
+    networks:
+      - magento
+
+networks:
+  magento:
