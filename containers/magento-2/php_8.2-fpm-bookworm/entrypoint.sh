@@ -40,13 +40,13 @@ setup_magento() {
     --timezone="${TIMEZONE:-America/Chicago}" \
     --use-rewrites="${USE_REWRITES:-1}" \
     --search-engine="${searchengine}" \
-    --${engine}_host="${SEARCH_ENGINE_HOST:-localhost}" \
-    --${engine}_port="${SEARCH_ENGINE_PORT:-9200}" \
-    --${engine}_index-prefix="${SEARCH_ENGINE_INDEX_PREFIX:-magento2}" \
-    --${engine}_timeout="${SEARCH_ENGINE_TIMEOUT:-15}" \
-    --${engine}_enable-auth="${SEARCH_ENGINE_ENABLE_AUTH:0}" \
-    --${engine}_username="${SEARCH_ENGINE_USERNAME}" \
-    --${engine}_password="${SEARCH_ENGINE_PASSWORD}"
+    --${engine}-host="${SEARCH_ENGINE_HOST:-localhost}" \
+    --${engine}-port="${SEARCH_ENGINE_PORT:-9200}" \
+    --${engine}-index-prefix="${SEARCH_ENGINE_INDEX_PREFIX:-magento2}" \
+    --${engine}-timeout="${SEARCH_ENGINE_TIMEOUT:-15}" \
+    --${engine}-enable-auth="${SEARCH_ENGINE_ENABLE_AUTH:0}" \
+    --${engine}-username="${SEARCH_ENGINE_USERNAME}" \
+    --${engine}-password="${SEARCH_ENGINE_PASSWORD}"
 }
 
 main() {

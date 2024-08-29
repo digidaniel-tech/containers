@@ -58,12 +58,40 @@ services:
       elasticsearch:
         condition: service_healthy
     environment:
+      # Required
       MAGENTO_VERSION: 2.4.6
-      MAGENTO_BASE_URL: "https://localhost/"
-      DB_HOST: "db"
-      SEARCH_ENGINE_HOST: "elasticsearch"
       MAGENTO_PUBLIC_KEY: ${MAGENTO_PUBLIC_KEY} # Loaded from environment variable for security
       MAGENTO_SECRET_KEY: ${MAGENTO_SECRET_KEY} # Loaded from environment variable for security
+
+      # Magento base configuration
+      MAGENTO_BASE_URL: "https://localhost/"
+      # LANGUAGE: "en_US"
+      # CURRENCY: "USD"
+      # TIMEZONE: "America/Chicago"
+      # USE_REWRITES: "1"
+
+      # Database configuration
+      DB_HOST: "db"
+      # DB_NAME: "magento"
+      # DB_USER: "magento"
+      # DB_PASS: "magento"
+
+      # Admin configuration
+      # ADMIN_FIRSTNAME: "admin"
+      # ADMIN_LASTNAME: "admin"
+      # ADMIN_EMAIL: "admin@admin.com"
+      # ADMIN_USER: "admin"
+      # ADMIN_PASSWORD: "admin123"
+
+      # Search engine configuration
+      SEARCH_ENGINE_HOST: "elasticsearch"
+      # SEARCH_ENGINE_HOST: "localhost"
+      # SEARCH_ENGINE_PORT: "9200"
+      # SEARCH_ENGINE_INDEX_PREFIX: "magento2"
+      # SEARCH_ENGINE_TIMEOUT: "15"
+      # SEARCH_ENGINE_ENABLE_AUTH: "0"
+      # SEARCH_ENGINE_USERNAME: ""
+      # SEARCH_ENGINE_PASSWORD: ""
     env_file:
       - .env
     networks:
