@@ -58,40 +58,34 @@ services:
       elasticsearch:
         condition: service_healthy
     environment:
-      # Required
+      # Required for creating the magento project
       MAGENTO_VERSION: 2.4.6
       MAGENTO_PUBLIC_KEY: ${MAGENTO_PUBLIC_KEY} # Loaded from environment variable for security
       MAGENTO_SECRET_KEY: ${MAGENTO_SECRET_KEY} # Loaded from environment variable for security
 
-      # Magento base configuration
-      MAGENTO_BASE_URL: "https://localhost/"
-      # LANGUAGE: "en_US"
-      # CURRENCY: "USD"
-      # TIMEZONE: "America/Chicago"
-      # USE_REWRITES: "1"
+      # When installning magento you can preconfigure multiple configurations using environment variables
+      # all supported configurations can be found on adobe's website and can be set as environment variables
+      # https://experienceleague.adobe.com/en/docs/commerce-operations/installation-guide/advanced#install-from-the-command-line
+      #
+      # Each property need to be transformed with uppercase, dashes in the beginning of the property needs
+      # to be removed and dashes between words need to be replaced with underscores.
+      # ex. --admin-firstname will be transformed to ADMIN_FIRSTNAME
 
-      # Database configuration
+      # Required for install of magento
+      ADMIN_FIRSTNAME: "admin"
+      ADMIN_LASTNAME: "admin"
+      ADMIN_EMAIL: "admin@digidaniel.se"
+      ADMIN_USER: "admin"
+      ADMIN_PASSWORD: "admin123"
+      BASE_URL: "https://localhost/"
+      DB_PASSWORD: "magento"
+
+      # Custom properties for this example
       DB_HOST: "db"
-      # DB_NAME: "magento"
-      # DB_USER: "magento"
-      # DB_PASS: "magento"
-
-      # Admin configuration
-      # ADMIN_FIRSTNAME: "admin"
-      # ADMIN_LASTNAME: "admin"
-      # ADMIN_EMAIL: "admin@admin.com"
-      # ADMIN_USER: "admin"
-      # ADMIN_PASSWORD: "admin123"
-
-      # Search engine configuration
-      SEARCH_ENGINE_HOST: "elasticsearch"
-      # SEARCH_ENGINE_HOST: "localhost"
-      # SEARCH_ENGINE_PORT: "9200"
-      # SEARCH_ENGINE_INDEX_PREFIX: "magento2"
-      # SEARCH_ENGINE_TIMEOUT: "15"
-      # SEARCH_ENGINE_ENABLE_AUTH: "0"
-      # SEARCH_ENGINE_USERNAME: ""
-      # SEARCH_ENGINE_PASSWORD: ""
+      DB_NAME: "magento"
+      DB_USER: "magento"
+      SEARCH_ENGINE: "elasticsearch7"
+      ELASTICSEARCH_HOST: "elasticsearch"
     env_file:
       - .env
     networks:
