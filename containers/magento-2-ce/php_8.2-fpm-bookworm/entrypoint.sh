@@ -24,6 +24,7 @@ create_magento_project() {
   echo "Setup Magento file permissions..."
   find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + 
   find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + 
+  chmod 644 -R ./app/etc/*.xml
   chown -R :www-data . 
   chmod u+x bin/magento
 }
