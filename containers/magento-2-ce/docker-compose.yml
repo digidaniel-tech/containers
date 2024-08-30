@@ -92,12 +92,15 @@ services:
       DB_USER: "magento"
       SEARCH_ENGINE: "elasticsearch7"
       ELASTICSEARCH_HOST: "elasticsearch"
+    volumes:
+      - magento:/app
     env_file:
       - .env
     networks:
       - backend
 
 volumes:
+  magento:
   db_data:
   es_data:
 

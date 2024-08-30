@@ -9,9 +9,16 @@ setup_composer_authentication() {
 }
 
 create_magento_project() {
-  echo "Creating Magento project..."
+  # Project is created in a temp folder and moved to app/ to being able to mount
+  # local files to project during development
+  echo "Creating Magento project in temp folder..."
   composer create-project --repository-url=https://repo.magento.com/ \
-    magento/project-community-edition:${MAGENTO_VERSION} .
+    magento/project-community-edition:${MAGENTO_VERSION} /app_temp/
+
+  # Copying project to /app where project is run
+  echo "Copying magento project to app folder..."
+  rsync -a --ignore-existing /app_temp/ /app/
+  rm -rf /app_temp
 
   # Set permissions
   echo "Setup Magento file permissions..."
@@ -25,7 +32,6 @@ setup_magento() {
   local arguments=$(build_argument_collection)
 
   echo "Starting Magento installation..."
-  echo "bin/magento setup:install ${arguments}"
   bin/magento setup:install ${arguments}
 }
 
