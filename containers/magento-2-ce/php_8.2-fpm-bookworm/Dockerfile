@@ -3,6 +3,7 @@ FROM php:8.2-fpm-bookworm
 # Install dependencies
 RUN apt update && apt install -y \
   --no-install-recommends \
+  rsync \
   unzip \
   libcurl4-openssl-dev \
   libxml2-dev \
